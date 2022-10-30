@@ -19,7 +19,12 @@
         "notifications"
     ],
 
-    "web_accessible_resources":[
-        "beep.wav"
+    "icons":{
+        "48":"cxb.svg",
+        "120":"cxb.svg"
+    },
+
+    "web_accessible_resources": [
+        "cxb.png"
     ]
 }

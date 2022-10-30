@@ -7,6 +7,7 @@ if(!envList.includes(env)) throw env;
 
 const src = path.resolve("./", "src");
 
+CleanDirectory(path.resolve("build", env))
 fs.readdir(src, (err, files) => { build(src, err, files) });
 
 function build(dir, err, files){
@@ -16,7 +17,6 @@ function build(dir, err, files){
         let fp = path.resolve(dir, f);
         if(fs.statSync(fp).isFile()){
             if (new RegExp(".*\." + env.toString() + "\..*$").test(f) || /.*\.common\..*$/.test(f)){
-                console.log("build: ",f);
                 //fileList.push(f);
                 let dest = path.resolve(fp.replace("src", "build/"+env ).replace(".common", "").replace("."+env, ""));
                 console.log("dest: " +dest);
@@ -29,13 +29,36 @@ function build(dir, err, files){
 }
 
 
-var CopyFileRecursively = ((srcpath, destpath) => {
-    let destDir = path.dirname(destpath);
+function CopyFileRecursively(srcpath, destpath){
+    let destDir = getParentDirectory(destpath);
     if ( !fs.existsSync(destDir) ) {
-        fs.mkdirSync(destpath,{ recursive: true } );
+        console.log("not exist");
+        fs.mkdirSync(destDir,{ recursive: true } );
     }
     if (fs.existsSync(destpath)){
         fs.rmSync(destpath);
     }
     fs.copyFileSync(srcpath, destpath);
-});
+};
+
+function getParentDirectory(filepath){
+    let splited = filepath.split("\\");
+    let res = "";
+    for(i=0; i<splited.length-1; i++){
+        res += splited[i] + "\\";
+    }
+    return path.resolve(res);
+}
+
+function CleanDirectory(dir){
+    if(!fs.existsSync(dir)) return;
+    let files = fs.readdirSync(dir);
+    files.forEach((f)=>{
+        fp = path.resolve(dir, f)
+        if(fs.statSync(fp).isFile()){
+            fs.rmSync(fp);
+        } else if(fs.statSync(fp).isDirectory()){
+            fs.rmdirSync(fp, { recursive:true, force:true})
+        }
+    })
+}

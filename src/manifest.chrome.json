@@ -11,11 +11,23 @@
     }],
 
     "background":{
-        "scripts":["background.js"]
+        "service_worker":"background.js"
     },
 
     "permissions":[
-        "<all_urls>",
         "notifications"
-    ]
+    ],
+    "icons":{
+        "48":"./cxb.svg",
+        "120":"./cxb.svg"
+    },
+
+    "web_accessible_resources": [{
+        "resources": [
+          "./cxb.png"
+        ],
+        "matches": [
+          "<all_urls>"
+        ]
+      }]
 }
