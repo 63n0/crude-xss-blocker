@@ -1,0 +1,13 @@
+{
+  "name": "crude-xss-blocker",
+  "version": "0.5.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node script/build.js firefox && node script/build.js chrome",
+    "build:firefox": "node script/build.js firefox",
+    "build:chrome": "node script/build.js chrome"
+  },
+  "author": "",
+  "license": "UNLICENSED"
+}
