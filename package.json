@@ -9,5 +9,5 @@
     "build:chrome": "node script/build.js chrome"
   },
   "author": "",
-  "license": "UNLICENSED"
+  "license": "MIT"
 }
